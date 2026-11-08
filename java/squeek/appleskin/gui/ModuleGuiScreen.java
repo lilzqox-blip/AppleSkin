@@ -2,6 +2,7 @@ package squeek.appleskin.gui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import squeek.appleskin.ModConfig;
@@ -41,8 +42,11 @@ public class ModuleGuiScreen extends Screen
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button)
+    public boolean mouseClicked(Click click, boolean doubled)
     {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         if (button == 0) {
             int x = (this.width - PANEL_W) / 2;
             int y = (this.height - (MODULES.length * ROW_H + 54)) / 2;
@@ -56,7 +60,7 @@ public class ModuleGuiScreen extends Screen
                 }
             }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     private boolean isEnabled(int i) {
