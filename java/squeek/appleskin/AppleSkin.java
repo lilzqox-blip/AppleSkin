@@ -19,12 +19,19 @@ import squeek.appleskin.network.ClientSyncHandler;
 
 public class AppleSkin implements ClientModInitializer
 {
+	private static KeyBinding clickGuiKey;
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	public void onInitializeClient()
 	{
 		ClientSyncHandler.init();
+		clickGuiKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.appleskin.click_gui", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, KeyBinding.Category.create(Identifier.of("appleskin", "main"))));
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			while (clickGuiKey.wasPressed()) {
+				if (client.currentScreen == null) client.setScreen(new ModuleGuiScreen());
+			}
+		});
 		ModConfig.init();
 		HUDOverlayHandler.init();
 		TooltipOverlayHandler.init();
