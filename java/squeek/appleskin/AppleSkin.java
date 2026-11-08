@@ -33,7 +33,7 @@ public class AppleSkin implements ClientModInitializer
 	public void onInitializeClient()
 	{
 		ClientSyncHandler.init();
-		clickGuiKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.appleskin.click_gui", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, KeyBinding.Category.create(Identifier.of("appleskin", "main"))));
+		clickGuiKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.appleskin.click_gui", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, KeyBinding.Category.create(Identifier.of("appleskin", "click_gui"))));
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (clickGuiKey.wasPressed()) {
 				if (client.currentScreen == null) {
