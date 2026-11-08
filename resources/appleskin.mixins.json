@@ -8,6 +8,8 @@
     "HungerManagerMixin"
   ],
   "client": [
+    "HandledScreenAccessor",
+    "MinecraftClientAccessor",
     "InGameHudMixin",
     "MinecraftClientMixin",
     "ItemStackMixin",
