@@ -9,4 +9,7 @@ public interface MinecraftClientAccessor
 {
 	@Accessor("itemUseCooldown")
 	void appleskin$setItemUseCooldown(int cooldown);
+
+	@Accessor("attackCooldown")
+	void appleskin$setAttackCooldown(int cooldown);
 }
