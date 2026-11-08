@@ -84,6 +84,25 @@ public class ModConfig
 
 	@Comment("Alpha value of the flashing icons at their most visible point (1.0 = fully opaque, 0.0 = fully transparent)")
 	public float maxHudOverlayFlashAlpha = 0.65f;
+
+	@Comment("If true, hovering a Totem of Undying in an inventory screen moves it to your offhand and/or hotbar")
+	public boolean hoverTotemEnabled = true;
+
+	@Comment("If true, hover totem moves the totem to your offhand first (when the offhand has no totem)")
+	public boolean hoverTotemOffhand = true;
+
+	@Comment("If true, hover totem also moves a totem to the chosen hotbar slot")
+	public boolean hoverTotemHotbar = true;
+
+	@Comment("Hotbar slot (1-9) that hover totem fills")
+	public int hoverTotemHotbarSlot = 9;
+
+	@Comment("Delay between hover totem moves, in ticks (1 tick = 0.05 seconds)")
+	public int hoverTotemDelayTicks = 1;
+
+	@Comment("If true, holding right click while holding an XP bottle throws bottles rapidly")
+	public boolean fastXpEnabled = true;
+
+	@Comment("Delay between fast XP throws, in ticks (0 = every tick, 1 tick = 0.05 seconds)")
+	public int fastXpDelayTicks = 0;
 }
-
-
