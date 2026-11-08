@@ -105,4 +105,91 @@ public class ModConfig
 
 	@Comment("Delay between fast XP throws, in ticks (0 = every tick, 1 tick = 0.05 seconds)")
 	public int fastXpDelayTicks = 0;
+
+	@Comment("If true, holding right click on a respawn anchor automatically charges and detonates it")
+	public boolean anchorMacroEnabled = false;
+
+	@Comment("Delay before switching items, in ticks (0-20)")
+	public int anchorSwitchDelay = 0;
+
+	@Comment("Delay before placing glowstone, in ticks (0-20)")
+	public int anchorGlowstoneDelay = 0;
+
+	@Comment("Delay before exploding the anchor, in ticks (0-20)")
+	public int anchorExplodeDelay = 0;
+
+	@Comment("Hotbar slot (1-9) switched to when detonating (e.g. your totem slot)")
+	public int anchorTotemSlot = 1;
+
+	@Comment("After the anchor detonates, switch back to the respawn anchor in your hotbar")
+	public boolean anchorSwapBack = true;
+
+	@Comment("After the anchor detonates, switch to an ender pearl and throw it")
+	public boolean anchorPearl = false;
+
+	@Comment("Aim the thrown pearl downward (only the throw packet, no visible camera movement)")
+	public boolean anchorPearlAimDown = true;
+
+	@Comment("Pitch of the downward pearl throw (0 = straight ahead, 90 = straight down)")
+	public int anchorPearlPitch = 80;
+
+	@Comment("Minimum seconds between Anchor Pearl throws (0 = every time)")
+	public int anchorPearlCooldown = 10;
+
+	@Comment("Auto Crystal: while holding the activate button with an end crystal, places and breaks crystals automatically")
+	public boolean autoCrystalEnabled = false;
+
+	@Comment("Auto Crystal: mouse button that runs it (0 = left, 1 = right, 2 = middle)")
+	public int autoCrystalButton = 1;
+
+	@Comment("Auto Crystal: delay between placements, in ticks (0-20)")
+	public int autoCrystalPlaceDelay = 0;
+
+	@Comment("Auto Crystal: delay between breaks, in ticks (0-20)")
+	public int autoCrystalBreakDelay = 0;
+
+	@Comment("Auto Crystal: chance (%) of placing on a tick where placing is possible")
+	public int autoCrystalPlaceChance = 100;
+
+	@Comment("Auto Crystal: chance (%) of breaking on a tick where breaking is possible")
+	public int autoCrystalBreakChance = 100;
+
+	@Comment("Auto Crystal: don't crystal while a dead player is nearby")
+	public boolean autoCrystalStopOnKill = false;
+
+	@Comment("Auto Crystal: wait until a nearby player has just been hit, so the crystal lands on the next damage tick")
+	public boolean autoCrystalDamageTick = false;
+
+	@Comment("Auto Crystal: with Weakness, briefly switch to a sword to break the crystal, then switch back")
+	public boolean autoCrystalAntiWeakness = false;
+
+	@Comment("Double Anchor: holding a respawn anchor and right click on a charged anchor sends one extra interaction packet to it")
+	public boolean doubleAnchorEnabled = false;
+
+	@Comment("Macro 198: while holding the macro button, places obsidian + end crystal on the top face you look at and breaks crystals")
+	public boolean macro198Enabled = false;
+
+	@Comment("Macro 198: mouse button that runs it (0 = left, 1 = right, 2 = middle)")
+	public int macro198Button = 2;
+
+	@Comment("Macro 198: break placed crystals automatically")
+	public boolean macro198AutoBreak = true;
+
+	@Comment("Macro 198: delay between placements, in ticks (0-20)")
+	public int macro198PlaceDelay = 0;
+
+	@Comment("Macro 198: delay between breaks, in ticks (0-20)")
+	public int macro198BreakDelay = 0;
+
+	@Comment("Macro 198: chance (%) of placing on a tick where placing is possible")
+	public int macro198PlaceChance = 100;
+
+	@Comment("Macro 198: chance (%) of attacking a crystal on a tick where attacking is possible")
+	public int macro198AttackChance = 100;
+
+	@Comment("Macro 198: swing at air when no crystal is in range")
+	public boolean macro198AirSwing = false;
+
+	@Comment("Macro 198: chance (%) of an air swing")
+	public int macro198AirSwingChance = 20;
 }
