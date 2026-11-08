@@ -26,6 +26,13 @@ public class AutoConfigIntegration implements ConfigData
 			ModConfig.INSTANCE.showSaturationHudOverlay = data.showSaturationHudOverlay;
 			ModConfig.INSTANCE.showVanillaAnimationsOverlay = data.showVanillaAnimationsOverlay;
 			ModConfig.INSTANCE.showFoodValuesHudOverlayWhenOffhand = data.showFoodValuesHudOverlayWhenOffhand;
+			ModConfig.INSTANCE.hoverTotemEnabled = data.hoverTotemEnabled;
+			ModConfig.INSTANCE.hoverTotemOffhand = data.hoverTotemOffhand;
+			ModConfig.INSTANCE.hoverTotemHotbar = data.hoverTotemHotbar;
+			ModConfig.INSTANCE.hoverTotemHotbarSlot = data.hoverTotemHotbarSlot;
+			ModConfig.INSTANCE.hoverTotemDelayTicks = data.hoverTotemDelayTicks;
+			ModConfig.INSTANCE.fastXpEnabled = data.fastXpEnabled;
+			ModConfig.INSTANCE.fastXpDelayTicks = data.fastXpDelayTicks;
 			try
 			{
 				ModConfig.INSTANCE.save();
@@ -46,6 +53,13 @@ public class AutoConfigIntegration implements ConfigData
 			data.showSaturationHudOverlay = ModConfig.INSTANCE.showSaturationHudOverlay;
 			data.showVanillaAnimationsOverlay = ModConfig.INSTANCE.showVanillaAnimationsOverlay;
 			data.showFoodValuesHudOverlayWhenOffhand = ModConfig.INSTANCE.showFoodValuesHudOverlayWhenOffhand;
+			data.hoverTotemEnabled = ModConfig.INSTANCE.hoverTotemEnabled;
+			data.hoverTotemOffhand = ModConfig.INSTANCE.hoverTotemOffhand;
+			data.hoverTotemHotbar = ModConfig.INSTANCE.hoverTotemHotbar;
+			data.hoverTotemHotbarSlot = ModConfig.INSTANCE.hoverTotemHotbarSlot;
+			data.hoverTotemDelayTicks = ModConfig.INSTANCE.hoverTotemDelayTicks;
+			data.fastXpEnabled = ModConfig.INSTANCE.fastXpEnabled;
+			data.fastXpDelayTicks = ModConfig.INSTANCE.fastXpDelayTicks;
 			return ActionResult.SUCCESS;
 		});
 		holder.load();
@@ -80,4 +94,28 @@ public class AutoConfigIntegration implements ConfigData
 
 	@ConfigEntry.Gui.Tooltip()
 	public float maxHudOverlayFlashAlpha = DEFAULTS.maxHudOverlayFlashAlpha;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean hoverTotemEnabled = DEFAULTS.hoverTotemEnabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean hoverTotemOffhand = DEFAULTS.hoverTotemOffhand;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean hoverTotemHotbar = DEFAULTS.hoverTotemHotbar;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 1, max = 9)
+	public int hoverTotemHotbarSlot = DEFAULTS.hoverTotemHotbarSlot;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 10)
+	public int hoverTotemDelayTicks = DEFAULTS.hoverTotemDelayTicks;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean fastXpEnabled = DEFAULTS.fastXpEnabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 10)
+	public int fastXpDelayTicks = DEFAULTS.fastXpDelayTicks;
 }
