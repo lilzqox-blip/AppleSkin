@@ -21,6 +21,24 @@
   "text.autoconfig.appleskin.option.maxHudOverlayFlashAlpha": "Max alpha of flashing HUD icons",
   "text.autoconfig.appleskin.option.maxHudOverlayFlashAlpha.@Tooltip": "Alpha value of the flashing icons at their most visible point (1.0 = fully opaque, 0.0 = fully transparent)",
 
+  "key.appleskin.hover_totem": "Toggle HoverTotem",
+  "key.category.appleskin.main": "AppleSkin",
+  "text.autoconfig.appleskin.option.hoverTotemEnabled": "HoverTotem",
+  "text.autoconfig.appleskin.option.hoverTotemEnabled.@Tooltip": "If true, hovering a Totem of Undying in an inventory screen moves it to your offhand and/or hotbar",
+  "text.autoconfig.appleskin.option.hoverTotemOffhand": "HoverTotem: offhand",
+  "text.autoconfig.appleskin.option.hoverTotemOffhand.@Tooltip": "Move the totem to your offhand first (when the offhand has no totem)",
+  "text.autoconfig.appleskin.option.hoverTotemHotbar": "HoverTotem: hotbar",
+  "text.autoconfig.appleskin.option.hoverTotemHotbar.@Tooltip": "Also move a totem to the chosen hotbar slot",
+  "text.autoconfig.appleskin.option.hoverTotemHotbarSlot": "HoverTotem: hotbar slot (1-9)",
+  "text.autoconfig.appleskin.option.hoverTotemHotbarSlot.@Tooltip": "Hotbar slot that hover totem fills",
+  "text.autoconfig.appleskin.option.hoverTotemDelayTicks": "HoverTotem: delay (ticks)",
+  "text.autoconfig.appleskin.option.hoverTotemDelayTicks.@Tooltip": "Delay between moves, in ticks (1 tick = 0.05 seconds)",
+
+  "text.autoconfig.appleskin.option.fastXpEnabled": "FastXP",
+  "text.autoconfig.appleskin.option.fastXpEnabled.@Tooltip": "If true, holding right click while holding an XP bottle throws bottles rapidly",
+  "text.autoconfig.appleskin.option.fastXpDelayTicks": "FastXP: delay (ticks)",
+  "text.autoconfig.appleskin.option.fastXpDelayTicks.@Tooltip": "Delay between throws, in ticks (0 = every tick, 1 tick = 0.05 seconds)",
+
   "modmenu.summaryTranslation.appleskin": "Adds various food-related HUD improvements",
   "modmenu.descriptionTranslation.appleskin": "Adds various food-related HUD improvements"
 }
