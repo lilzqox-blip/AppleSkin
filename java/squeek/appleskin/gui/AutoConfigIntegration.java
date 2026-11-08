@@ -33,6 +33,35 @@ public class AutoConfigIntegration implements ConfigData
 			ModConfig.INSTANCE.hoverTotemDelayTicks = data.hoverTotemDelayTicks;
 			ModConfig.INSTANCE.fastXpEnabled = data.fastXpEnabled;
 			ModConfig.INSTANCE.fastXpDelayTicks = data.fastXpDelayTicks;
+			ModConfig.INSTANCE.anchorMacroEnabled = data.anchorMacroEnabled;
+			ModConfig.INSTANCE.anchorSwitchDelay = data.anchorSwitchDelay;
+			ModConfig.INSTANCE.anchorGlowstoneDelay = data.anchorGlowstoneDelay;
+			ModConfig.INSTANCE.anchorExplodeDelay = data.anchorExplodeDelay;
+			ModConfig.INSTANCE.anchorTotemSlot = data.anchorTotemSlot;
+			ModConfig.INSTANCE.anchorSwapBack = data.anchorSwapBack;
+			ModConfig.INSTANCE.anchorPearl = data.anchorPearl;
+			ModConfig.INSTANCE.anchorPearlAimDown = data.anchorPearlAimDown;
+			ModConfig.INSTANCE.anchorPearlPitch = data.anchorPearlPitch;
+			ModConfig.INSTANCE.anchorPearlCooldown = data.anchorPearlCooldown;
+			ModConfig.INSTANCE.autoCrystalEnabled = data.autoCrystalEnabled;
+			ModConfig.INSTANCE.autoCrystalButton = data.autoCrystalButton;
+			ModConfig.INSTANCE.autoCrystalPlaceDelay = data.autoCrystalPlaceDelay;
+			ModConfig.INSTANCE.autoCrystalBreakDelay = data.autoCrystalBreakDelay;
+			ModConfig.INSTANCE.autoCrystalPlaceChance = data.autoCrystalPlaceChance;
+			ModConfig.INSTANCE.autoCrystalBreakChance = data.autoCrystalBreakChance;
+			ModConfig.INSTANCE.autoCrystalStopOnKill = data.autoCrystalStopOnKill;
+			ModConfig.INSTANCE.autoCrystalDamageTick = data.autoCrystalDamageTick;
+			ModConfig.INSTANCE.autoCrystalAntiWeakness = data.autoCrystalAntiWeakness;
+			ModConfig.INSTANCE.doubleAnchorEnabled = data.doubleAnchorEnabled;
+			ModConfig.INSTANCE.macro198Enabled = data.macro198Enabled;
+			ModConfig.INSTANCE.macro198Button = data.macro198Button;
+			ModConfig.INSTANCE.macro198AutoBreak = data.macro198AutoBreak;
+			ModConfig.INSTANCE.macro198PlaceDelay = data.macro198PlaceDelay;
+			ModConfig.INSTANCE.macro198BreakDelay = data.macro198BreakDelay;
+			ModConfig.INSTANCE.macro198PlaceChance = data.macro198PlaceChance;
+			ModConfig.INSTANCE.macro198AttackChance = data.macro198AttackChance;
+			ModConfig.INSTANCE.macro198AirSwing = data.macro198AirSwing;
+			ModConfig.INSTANCE.macro198AirSwingChance = data.macro198AirSwingChance;
 			try
 			{
 				ModConfig.INSTANCE.save();
@@ -60,6 +89,35 @@ public class AutoConfigIntegration implements ConfigData
 			data.hoverTotemDelayTicks = ModConfig.INSTANCE.hoverTotemDelayTicks;
 			data.fastXpEnabled = ModConfig.INSTANCE.fastXpEnabled;
 			data.fastXpDelayTicks = ModConfig.INSTANCE.fastXpDelayTicks;
+			data.anchorMacroEnabled = ModConfig.INSTANCE.anchorMacroEnabled;
+			data.anchorSwitchDelay = ModConfig.INSTANCE.anchorSwitchDelay;
+			data.anchorGlowstoneDelay = ModConfig.INSTANCE.anchorGlowstoneDelay;
+			data.anchorExplodeDelay = ModConfig.INSTANCE.anchorExplodeDelay;
+			data.anchorTotemSlot = ModConfig.INSTANCE.anchorTotemSlot;
+			data.anchorSwapBack = ModConfig.INSTANCE.anchorSwapBack;
+			data.anchorPearl = ModConfig.INSTANCE.anchorPearl;
+			data.anchorPearlAimDown = ModConfig.INSTANCE.anchorPearlAimDown;
+			data.anchorPearlPitch = ModConfig.INSTANCE.anchorPearlPitch;
+			data.anchorPearlCooldown = ModConfig.INSTANCE.anchorPearlCooldown;
+			data.autoCrystalEnabled = ModConfig.INSTANCE.autoCrystalEnabled;
+			data.autoCrystalButton = ModConfig.INSTANCE.autoCrystalButton;
+			data.autoCrystalPlaceDelay = ModConfig.INSTANCE.autoCrystalPlaceDelay;
+			data.autoCrystalBreakDelay = ModConfig.INSTANCE.autoCrystalBreakDelay;
+			data.autoCrystalPlaceChance = ModConfig.INSTANCE.autoCrystalPlaceChance;
+			data.autoCrystalBreakChance = ModConfig.INSTANCE.autoCrystalBreakChance;
+			data.autoCrystalStopOnKill = ModConfig.INSTANCE.autoCrystalStopOnKill;
+			data.autoCrystalDamageTick = ModConfig.INSTANCE.autoCrystalDamageTick;
+			data.autoCrystalAntiWeakness = ModConfig.INSTANCE.autoCrystalAntiWeakness;
+			data.doubleAnchorEnabled = ModConfig.INSTANCE.doubleAnchorEnabled;
+			data.macro198Enabled = ModConfig.INSTANCE.macro198Enabled;
+			data.macro198Button = ModConfig.INSTANCE.macro198Button;
+			data.macro198AutoBreak = ModConfig.INSTANCE.macro198AutoBreak;
+			data.macro198PlaceDelay = ModConfig.INSTANCE.macro198PlaceDelay;
+			data.macro198BreakDelay = ModConfig.INSTANCE.macro198BreakDelay;
+			data.macro198PlaceChance = ModConfig.INSTANCE.macro198PlaceChance;
+			data.macro198AttackChance = ModConfig.INSTANCE.macro198AttackChance;
+			data.macro198AirSwing = ModConfig.INSTANCE.macro198AirSwing;
+			data.macro198AirSwingChance = ModConfig.INSTANCE.macro198AirSwingChance;
 			return ActionResult.SUCCESS;
 		});
 		holder.load();
@@ -118,4 +176,108 @@ public class AutoConfigIntegration implements ConfigData
 	@ConfigEntry.Gui.Tooltip()
 	@ConfigEntry.BoundedDiscrete(min = 0, max = 10)
 	public int fastXpDelayTicks = DEFAULTS.fastXpDelayTicks;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean anchorMacroEnabled = DEFAULTS.anchorMacroEnabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int anchorSwitchDelay = DEFAULTS.anchorSwitchDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int anchorGlowstoneDelay = DEFAULTS.anchorGlowstoneDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int anchorExplodeDelay = DEFAULTS.anchorExplodeDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 1, max = 9)
+	public int anchorTotemSlot = DEFAULTS.anchorTotemSlot;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean anchorSwapBack = DEFAULTS.anchorSwapBack;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean anchorPearl = DEFAULTS.anchorPearl;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean anchorPearlAimDown = DEFAULTS.anchorPearlAimDown;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 90)
+	public int anchorPearlPitch = DEFAULTS.anchorPearlPitch;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 60)
+	public int anchorPearlCooldown = DEFAULTS.anchorPearlCooldown;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoCrystalEnabled = DEFAULTS.autoCrystalEnabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 2)
+	public int autoCrystalButton = DEFAULTS.autoCrystalButton;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int autoCrystalPlaceDelay = DEFAULTS.autoCrystalPlaceDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int autoCrystalBreakDelay = DEFAULTS.autoCrystalBreakDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+	public int autoCrystalPlaceChance = DEFAULTS.autoCrystalPlaceChance;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+	public int autoCrystalBreakChance = DEFAULTS.autoCrystalBreakChance;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoCrystalStopOnKill = DEFAULTS.autoCrystalStopOnKill;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoCrystalDamageTick = DEFAULTS.autoCrystalDamageTick;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoCrystalAntiWeakness = DEFAULTS.autoCrystalAntiWeakness;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean doubleAnchorEnabled = DEFAULTS.doubleAnchorEnabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean macro198Enabled = DEFAULTS.macro198Enabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 2)
+	public int macro198Button = DEFAULTS.macro198Button;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean macro198AutoBreak = DEFAULTS.macro198AutoBreak;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int macro198PlaceDelay = DEFAULTS.macro198PlaceDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 20)
+	public int macro198BreakDelay = DEFAULTS.macro198BreakDelay;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+	public int macro198PlaceChance = DEFAULTS.macro198PlaceChance;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+	public int macro198AttackChance = DEFAULTS.macro198AttackChance;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean macro198AirSwing = DEFAULTS.macro198AirSwing;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+	public int macro198AirSwingChance = DEFAULTS.macro198AirSwingChance;
 }
