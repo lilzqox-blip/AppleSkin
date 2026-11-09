@@ -202,6 +202,9 @@ public class ModConfig
 	@Comment("Double Anchor Macro: max time to wait for a damage tick, in milliseconds")
 	public int doubleAnchorMacroDamageTickMaxWait = 400;
 
+	@Comment("Show an action-bar message (e.g. \"AutoCrystal: ON\") whenever a module is toggled on/off")
+	public boolean showToggleNotifications = true;
+
 	@Comment("Macro 198: while holding the macro button, places obsidian + end crystal on the top face you look at and breaks crystals")
 	public boolean macro198Enabled = false;
 
