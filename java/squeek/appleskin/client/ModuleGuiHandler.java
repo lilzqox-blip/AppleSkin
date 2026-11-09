@@ -60,6 +60,8 @@ public class ModuleGuiHandler
 		for (int i = 0; i < ModuleScreen.MODULES.size(); i++)
 		{
 			ModuleScreen.Module module = ModuleScreen.MODULES.get(i);
+			if (module.bind == null)
+				continue;
 			int key = module.bind.getInt();
 			boolean pressed = key > 0 && mc.currentScreen == null
 				&& GLFW.glfwGetKey(mc.getWindow().getHandle(), key) == GLFW.GLFW_PRESS;
@@ -68,7 +70,8 @@ public class ModuleGuiHandler
 				boolean now = !module.enabled.getBool();
 				module.enabled.setBool(now);
 				markDirty();
-				mc.player.sendMessage(Text.literal(module.name + ": " + (now ? "ON" : "OFF")), true);
+				if (ModConfig.INSTANCE.showToggleNotifications)
+					mc.player.sendMessage(Text.literal(module.name + ": " + (now ? "ON" : "OFF")), true);
 			}
 			bindWasDown[i] = pressed;
 		}

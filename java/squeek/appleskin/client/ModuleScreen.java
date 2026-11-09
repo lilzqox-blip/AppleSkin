@@ -43,7 +43,7 @@ public class ModuleScreen extends Screen
 	private static final int SLIDER_H = 28;
 	private static final int GAP = 2;
 
-	private static final String[] TABS = {"Combat", "Misc"};
+	private static final String[] TABS = {"Combat", "Misc", "Settings"};
 
 	// ------------------------------------------------------------ data modul
 
@@ -136,7 +136,7 @@ public class ModuleScreen extends Screen
 		final String name;
 		final int tab;
 		final Setting enabled;
-		final Setting bind;
+		final Setting bind; // null untuk halaman tanpa keybind (mis. Settings)
 		final List<Setting> others;
 
 		Module(String name, int tab, Setting enabled, Setting bind, List<Setting> others)
@@ -231,7 +231,8 @@ public class ModuleScreen extends Screen
 			toggle("AirSwing", "macro198AirSwing"),
 			number("AirSwingChance (%)", "macro198AirSwingChance", 0, 100))),
 		new Module("FastXP", 1, toggle("Enabled", "fastXpEnabled"), bind("fastXpBind"), List.of(
-			number("Delay (tick)", "fastXpDelayTicks", 0, 10)))
+			number("Delay (tick)", "fastXpDelayTicks", 0, 10))),
+		new Module("General", 2, toggle("Notifications", "showToggleNotifications"), null, List.of())
 	);
 
 	// ------------------------------------------------------------- state GUI
@@ -467,7 +468,8 @@ public class ModuleScreen extends Screen
 
 		// ---- kanan: baris pengaturan (bisa di-scroll)
 		List<Setting> rows = new java.util.ArrayList<>();
-		rows.add(module.bind);
+		if (module.bind != null)
+			rows.add(module.bind);
 		rows.addAll(module.others);
 
 		int viewTop = bodyY + HEAD_H + 4;

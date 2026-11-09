@@ -56,7 +56,8 @@ public class HoverTotemHandler
 			catch (IOException ignored)
 			{
 			}
-			mc.player.sendMessage(Text.literal("HoverTotem: " + (ModConfig.INSTANCE.hoverTotemEnabled ? "ON" : "OFF")), true);
+			if (ModConfig.INSTANCE.showToggleNotifications)
+				mc.player.sendMessage(Text.literal("HoverTotem: " + (ModConfig.INSTANCE.hoverTotemEnabled ? "ON" : "OFF")), true);
 		}
 
 		if (!ModConfig.INSTANCE.hoverTotemEnabled)

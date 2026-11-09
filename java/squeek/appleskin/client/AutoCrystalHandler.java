@@ -84,6 +84,8 @@ public class AutoCrystalHandler
 			catch (IOException ignored)
 			{
 			}
+			if (ModConfig.INSTANCE.showToggleNotifications)
+				mc.player.sendMessage(Text.literal("Auto Crystal: " + (ModConfig.INSTANCE.autoCrystalEnabled ? "ON" : "OFF")), true);
 		}
 
 		if (!ModConfig.INSTANCE.autoCrystalEnabled)

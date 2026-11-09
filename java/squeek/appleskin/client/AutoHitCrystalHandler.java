@@ -60,6 +60,8 @@ public class AutoHitCrystalHandler
 			catch (IOException ignored)
 			{
 			}
+			if (ModConfig.INSTANCE.showToggleNotifications)
+				mc.player.sendMessage(Text.literal("Auto Hit Crystal: " + (ModConfig.INSTANCE.autoHitCrystalEnabled ? "ON" : "OFF")), true);
 		}
 
 		if (!ModConfig.INSTANCE.autoHitCrystalEnabled)

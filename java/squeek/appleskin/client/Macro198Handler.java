@@ -62,7 +62,8 @@ public class Macro198Handler
 			catch (IOException ignored)
 			{
 			}
-			mc.player.sendMessage(Text.literal("Macro 198: " + (ModConfig.INSTANCE.macro198Enabled ? "ON" : "OFF")), true);
+			if (ModConfig.INSTANCE.showToggleNotifications)
+				mc.player.sendMessage(Text.literal("Macro 198: " + (ModConfig.INSTANCE.macro198Enabled ? "ON" : "OFF")), true);
 		}
 
 		if (!ModConfig.INSTANCE.macro198Enabled || mc.currentScreen != null)

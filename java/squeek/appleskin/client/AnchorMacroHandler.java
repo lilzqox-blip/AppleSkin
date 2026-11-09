@@ -79,7 +79,8 @@ public class AnchorMacroHandler
 			catch (IOException ignored)
 			{
 			}
-			mc.player.sendMessage(Text.literal("Anchor Macro: " + (ModConfig.INSTANCE.anchorMacroEnabled ? "ON" : "OFF")), true);
+			if (ModConfig.INSTANCE.showToggleNotifications)
+				mc.player.sendMessage(Text.literal("Anchor Macro: " + (ModConfig.INSTANCE.anchorMacroEnabled ? "ON" : "OFF")), true);
 		}
 
 		if (!ModConfig.INSTANCE.anchorMacroEnabled)
