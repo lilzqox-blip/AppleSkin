@@ -2,30 +2,22 @@ package squeek.appleskin.client;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.RespawnAnchorBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.decoration.EndCrystalEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import org.lwjgl.glfw.GLFW;
 import squeek.appleskin.ModConfig;
 
@@ -33,40 +25,24 @@ import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Auto Crystal: tahan tombol aktif (default klik kanan) sambil memegang end crystal ->
- * otomatis pasang crystal di obsidian/bedrock yang dilihat dan hancurkan crystal yang dilihat.
+ * Auto Hit Crystal: pegang pedang, tahan tombol aktif (default klik kanan) ke sebuah block ->
+ * pasang obsidian di sana, ganti ke end crystal, lalu jalankan logika Auto Crystal
+ * (pasang + hancurkan crystal), seperti hit-crystalling.
  */
-public class AutoCrystalHandler
+public class AutoHitCrystalHandler
 {
-	/** Kategori keybind bersama untuk AutoCrystal, DoubleAnchor dan Macro198. */
-	public static final KeyBinding.Category CATEGORY = KeyBinding.Category.create(Identifier.of("appleskin", "combat_macros"));
-
-	/** Diset true oleh modul kita sendiri saat memasang block, supaya tidak dibatalkan callback di bawah. */
-	public static boolean bypassUseCancel = false;
-
 	private static final KeyBinding TOGGLE_KEY = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-		"key.appleskin.auto_crystal", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY));
+		"key.appleskin.auto_hit_crystal", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, AutoCrystalHandler.CATEGORY));
 
 	private static int placeClock;
-	private static int breakClock;
+	private static int switchClock;
+	private static boolean active;
+	private static boolean crystalling;
+	private static boolean crystalSelected;
 
 	public static void init()
 	{
-		ClientTickEvents.END_CLIENT_TICK.register(AutoCrystalHandler::onTick);
-
-		// Batalkan klik kanan bawaan ke obsidian/bedrock saat pegang crystal (modul yang memasangnya)
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult) ->
-		{
-			if (!world.isClient() || bypassUseCancel || !ModConfig.INSTANCE.autoCrystalEnabled)
-				return ActionResult.PASS;
-			if (hand == Hand.MAIN_HAND && player.getMainHandStack().isOf(Items.END_CRYSTAL))
-			{
-				BlockState state = world.getBlockState(hitResult.getBlockPos());
-				if (state.isOf(Blocks.OBSIDIAN) || state.isOf(Blocks.BEDROCK))
-					return ActionResult.FAIL;
-			}
-			return ActionResult.PASS;
-		});
+		ClientTickEvents.END_CLIENT_TICK.register(AutoHitCrystalHandler::onTick);
 	}
 
 	private static void onTick(MinecraftClient mc)
@@ -76,7 +52,7 @@ public class AutoCrystalHandler
 
 		while (TOGGLE_KEY.wasPressed())
 		{
-			ModConfig.INSTANCE.autoCrystalEnabled = !ModConfig.INSTANCE.autoCrystalEnabled;
+			ModConfig.INSTANCE.autoHitCrystalEnabled = !ModConfig.INSTANCE.autoHitCrystalEnabled;
 			try
 			{
 				ModConfig.INSTANCE.save();
@@ -86,169 +62,184 @@ public class AutoCrystalHandler
 			}
 		}
 
-		if (!ModConfig.INSTANCE.autoCrystalEnabled)
-			return;
-
-		crystalTick(mc);
-	}
-
-	/** Satu tick logika Auto Crystal (tanpa cek enabled). Juga dipanggil oleh Auto Hit Crystal. */
-	public static void crystalTick(MinecraftClient mc)
-	{
-		if (mc.player == null || mc.world == null || mc.interactionManager == null || mc.currentScreen != null)
-			return;
-
-		boolean dontPlace = placeClock != 0;
-		boolean dontBreak = breakClock != 0;
-
-		if (ModConfig.INSTANCE.autoCrystalStopOnKill && isDeadBodyNearby(mc))
-			return;
-
-		int roll = ThreadLocalRandom.current().nextInt(1, 101);
-
-		if (dontPlace)
-			placeClock--;
-		if (dontBreak)
-			breakClock--;
-
-		if (mc.player.isUsingItem())
-			return;
-
-		if (ModConfig.INSTANCE.autoCrystalDamageTick && damageTickCheck(mc))
-			return;
-
-		if (GLFW.glfwGetMouseButton(mc.getWindow().getHandle(), ModConfig.INSTANCE.autoCrystalButton) != GLFW.GLFW_PRESS)
+		if (!ModConfig.INSTANCE.autoHitCrystalEnabled)
 		{
-			placeClock = 0;
-			breakClock = 0;
+			reset();
 			return;
 		}
 
-		if (!mc.player.getMainHandStack().isOf(Items.END_CRYSTAL))
+		int randomNum = rand();
+
+		if (mc.currentScreen != null)
 			return;
 
-		// Pasang crystal di obsidian/bedrock yang sedang dilihat
-		if (mc.crosshairTarget instanceof BlockHitResult hit && hit.getType() == HitResult.Type.BLOCK)
+		boolean held = GLFW.glfwGetMouseButton(mc.getWindow().getHandle(), ModConfig.INSTANCE.autoHitCrystalButton) == GLFW.GLFW_PRESS;
+		if (!held)
 		{
-			if (!dontPlace && roll <= ModConfig.INSTANCE.autoCrystalPlaceChance)
+			reset();
+			return;
+		}
+
+		if (mc.crosshairTarget instanceof BlockHitResult checkHit && checkHit.getType() == HitResult.Type.BLOCK)
+		{
+			if (!active && ModConfig.INSTANCE.autoHitCrystalCheckPlace && !canPlaceObsidian(mc, checkHit))
+				return;
+		}
+
+		ItemStack mainHand = mc.player.getMainHandStack();
+		boolean validItem = mainHand.isIn(ItemTags.SWORDS)
+			|| (ModConfig.INSTANCE.autoHitCrystalWorkWithTotem && mainHand.isOf(Items.TOTEM_OF_UNDYING))
+			|| (ModConfig.INSTANCE.autoHitCrystalWorkWithCrystal && mainHand.isOf(Items.END_CRYSTAL));
+
+		if (!validItem && !active)
+			return;
+		else if (mc.crosshairTarget instanceof BlockHitResult hit && !active)
+		{
+			if (ModConfig.INSTANCE.autoHitCrystalSwordSwap && hit.getType() == HitResult.Type.BLOCK)
 			{
-				BlockPos pos = hit.getBlockPos();
-				BlockState state = mc.world.getBlockState(pos);
-				if ((state.isOf(Blocks.OBSIDIAN) || state.isOf(Blocks.BEDROCK)) && canPlaceCrystal(mc, pos))
-				{
-					placeBlock(mc, hit);
-					placeClock = ModConfig.INSTANCE.autoCrystalPlaceDelay;
-				}
+				Block block = mc.world.getBlockState(hit.getBlockPos()).getBlock();
+				crystalling = block == Blocks.OBSIDIAN || block == Blocks.BEDROCK;
 			}
 		}
 
-		// Hancurkan crystal (atau slime) yang sedang dilihat
-		int breakRoll = ThreadLocalRandom.current().nextInt(1, 101);
-		if (mc.crosshairTarget instanceof EntityHitResult entityHit)
+		active = true;
+
+		// Tahap 1: pasang obsidian di block yang dilihat
+		if (!crystalling)
 		{
-			if (!dontBreak && breakRoll <= ModConfig.INSTANCE.autoCrystalBreakChance)
+			if (mc.crosshairTarget instanceof BlockHitResult hit)
 			{
-				Entity entity = entityHit.getEntity();
-				if (!(entity instanceof EndCrystalEntity || entity instanceof SlimeEntity))
+				if (hit.getType() == HitResult.Type.MISS)
 					return;
 
-				int previousSlot = mc.player.getInventory().getSelectedSlot();
-				boolean swapped = false;
-
-				if (ModConfig.INSTANCE.autoCrystalAntiWeakness && cantBreakCrystal(mc))
+				if (!mc.world.getBlockState(hit.getBlockPos()).isOf(Blocks.OBSIDIAN))
 				{
-					int sword = findHotbarTool(mc);
-					if (sword != -1)
+					if (isChargedAnchor(mc, hit.getBlockPos()))
+						return;
+
+					mc.options.useKey.setPressed(false);
+
+					if (!mc.player.isHolding(Items.OBSIDIAN))
 					{
-						mc.player.getInventory().setSelectedSlot(sword);
-						swapped = true;
+						if (switchClock > 0)
+						{
+							switchClock--;
+							return;
+						}
+
+						if (randomNum <= ModConfig.INSTANCE.autoHitCrystalSwitchChance)
+						{
+							switchClock = ModConfig.INSTANCE.autoHitCrystalSwitchDelay;
+							selectHotbarItem(mc, Items.OBSIDIAN);
+						}
+					}
+
+					if (mc.player.isHolding(Items.OBSIDIAN))
+					{
+						if (placeClock > 0)
+						{
+							placeClock--;
+							return;
+						}
+
+						randomNum = rand();
+
+						if (randomNum <= ModConfig.INSTANCE.autoHitCrystalPlaceChance)
+						{
+							placeBlock(mc, hit);
+							placeClock = ModConfig.INSTANCE.autoHitCrystalPlaceDelay;
+							crystalling = true;
+						}
 					}
 				}
-
-				mc.interactionManager.attackEntity(mc.player, entity);
-				mc.player.swingHand(Hand.MAIN_HAND);
-				breakClock = ModConfig.INSTANCE.autoCrystalBreakDelay;
-
-				if (swapped)
-					mc.player.getInventory().setSelectedSlot(previousSlot);
 			}
 		}
+
+		// Tahap 2: ganti ke end crystal, lalu jalankan Auto Crystal
+		if (crystalling)
+		{
+			if (!mc.player.isHolding(Items.END_CRYSTAL) && !crystalSelected)
+			{
+				if (switchClock > 0)
+				{
+					switchClock--;
+					return;
+				}
+
+				randomNum = rand();
+
+				if (randomNum <= ModConfig.INSTANCE.autoHitCrystalSwitchChance)
+				{
+					crystalSelected = selectHotbarItem(mc, Items.END_CRYSTAL);
+					switchClock = ModConfig.INSTANCE.autoHitCrystalSwitchDelay;
+				}
+			}
+
+			if (mc.player.isHolding(Items.END_CRYSTAL))
+			{
+				// kalau modul AutoCrystal menyala, dia sudah jalan sendiri
+				if (!ModConfig.INSTANCE.autoCrystalEnabled)
+					AutoCrystalHandler.crystalTick(mc);
+			}
+		}
+	}
+
+	private static void reset()
+	{
+		placeClock = ModConfig.INSTANCE.autoHitCrystalPlaceDelay;
+		switchClock = ModConfig.INSTANCE.autoHitCrystalSwitchDelay;
+		active = false;
+		crystalling = false;
+		crystalSelected = false;
 	}
 
 	// ---------------------------------------------------------------- helpers
 
+	private static int rand()
+	{
+		return ThreadLocalRandom.current().nextInt(1, 101);
+	}
+
+	/** Obsidian bisa dipasang menempel di block yang dilihat (sisi yang dikenai crosshair). */
+	private static boolean canPlaceObsidian(MinecraftClient mc, BlockHitResult hit)
+	{
+		BlockPos target = hit.getBlockPos().offset(hit.getSide());
+		return mc.world.getBlockState(target).isReplaceable()
+			&& mc.world.canPlace(Blocks.OBSIDIAN.getDefaultState(), target, ShapeContext.absent());
+	}
+
+	private static boolean isChargedAnchor(MinecraftClient mc, BlockPos pos)
+	{
+		return mc.world.getBlockState(pos).isOf(Blocks.RESPAWN_ANCHOR)
+			&& mc.world.getBlockState(pos).get(RespawnAnchorBlock.CHARGES) > 0;
+	}
+
 	private static void placeBlock(MinecraftClient mc, BlockHitResult hit)
 	{
-		bypassUseCancel = true;
+		AutoCrystalHandler.bypassUseCancel = true;
 		try
 		{
 			mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, hit);
 		}
 		finally
 		{
-			bypassUseCancel = false;
+			AutoCrystalHandler.bypassUseCancel = false;
 		}
 		mc.player.swingHand(Hand.MAIN_HAND);
 	}
 
-	/** Crystal bisa dipasang di atas block ini: dua block di atasnya kosong dan tidak ada entity di sana. */
-	public static boolean canPlaceCrystal(MinecraftClient mc, BlockPos base)
+	private static boolean selectHotbarItem(MinecraftClient mc, Item item)
 	{
-		BlockPos up = base.up();
-		if (!mc.world.getBlockState(up).isAir() || !mc.world.getBlockState(up.up()).isAir())
-			return false;
-		Box box = new Box(up.getX(), up.getY(), up.getZ(), up.getX() + 1.0, up.getY() + 2.0, up.getZ() + 1.0);
-		return mc.world.getOtherEntities(null, box).isEmpty();
-	}
-
-	private static boolean isDeadBodyNearby(MinecraftClient mc)
-	{
-		for (PlayerEntity p : mc.world.getPlayers())
+		if (mc.player.getMainHandStack().isOf(item))
+			return true;
+		for (int i = 0; i < 9; i++)
 		{
-			if (p != mc.player && p.isDead() && p.squaredDistanceTo(mc.player) < 64.0)
+			if (mc.player.getInventory().getStack(i).isOf(item))
+			{
+				mc.player.getInventory().setSelectedSlot(i);
 				return true;
+			}
 		}
 		return false;
-	}
-
-	private static boolean damageTickCheck(MinecraftClient mc)
-	{
-		boolean someoneHurt = mc.world.getPlayers().stream()
-			.filter(e -> e != mc.player)
-			.filter(e -> e.squaredDistanceTo(mc.player) < 36)
-			.filter(e -> e.getLastAttacker() == null)
-			.filter(e -> !e.isOnGround())
-			.anyMatch(e -> e.hurtTime >= 2);
-		return someoneHurt && !(mc.player.getAttacking() instanceof PlayerEntity);
-	}
-
-	private static boolean isTool(ItemStack stack)
-	{
-		return stack.isIn(ItemTags.SWORDS) || stack.isIn(ItemTags.AXES)
-			|| stack.isIn(ItemTags.PICKAXES) || stack.isIn(ItemTags.SHOVELS);
-	}
-
-	private static boolean cantBreakCrystal(MinecraftClient mc)
-	{
-		StatusEffectInstance weakness = mc.player.getStatusEffect(StatusEffects.WEAKNESS);
-		StatusEffectInstance strength = mc.player.getStatusEffect(StatusEffects.STRENGTH);
-		return !(weakness == null
-			|| (strength != null && strength.getAmplifier() > weakness.getAmplifier())
-			|| isTool(mc.player.getMainHandStack()));
-	}
-
-	private static int findHotbarTool(MinecraftClient mc)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			if (mc.player.getInventory().getStack(i).isIn(ItemTags.SWORDS))
-				return i;
-		}
-		for (int i = 0; i < 9; i++)
-		{
-			if (isTool(mc.player.getInventory().getStack(i)))
-				return i;
-		}
-		return -1;
 	}
 }
