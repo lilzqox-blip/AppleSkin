@@ -1,4 +1,4 @@
-
+{
   "text.autoconfig.appleskin.title": "AppleSkin",
   "text.autoconfig.appleskin.option.showFoodValuesInTooltip": "Show food values in tooltip",
   "text.autoconfig.appleskin.option.showFoodValuesInTooltip.@Tooltip": "If true, shows the hunger and saturation values of food in its tooltip while holding SHIFT",
@@ -104,6 +104,17 @@
   "text.autoconfig.appleskin.option.macro198AirSwing.@Tooltip": "Swing at air when no crystal is in range",
   "text.autoconfig.appleskin.option.macro198AirSwingChance": "Macro 198: air swing chance (%)",
   "text.autoconfig.appleskin.option.macro198AirSwingChance.@Tooltip": "Chance of an air swing",
+
+  "key.appleskin.auto_hit_crystal": "Toggle Auto Hit Crystal",
+  "key.appleskin.open_gui": "Open module GUI",
+  "text.autoconfig.appleskin.option.autoHitCrystalEnabled": "Auto Hit Crystal",
+  "text.autoconfig.appleskin.option.autoHitCrystalEnabled.@Tooltip": "Automatically hits the nearest end crystal within range",
+  "text.autoconfig.appleskin.option.autoHitCrystalRange10": "Auto Hit Crystal: range (x0.1 blocks)",
+  "text.autoconfig.appleskin.option.autoHitCrystalRange10.@Tooltip": "Max distance to a crystal in tenths of a block (50 = 5.0)",
+  "text.autoconfig.appleskin.option.autoHitCrystalRotate": "Auto Hit Crystal: rotate",
+  "text.autoconfig.appleskin.option.autoHitCrystalRotate.@Tooltip": "Turn the camera to the crystal first, then hit it on the next tick",
+  "text.autoconfig.appleskin.option.autoHitCrystalDelayMs": "Auto Hit Crystal: delay (ms)",
+  "text.autoconfig.appleskin.option.autoHitCrystalDelayMs.@Tooltip": "Minimum milliseconds between crystal hits",
 
   "modmenu.summaryTranslation.appleskin": "Adds various food-related HUD improvements",
   "modmenu.descriptionTranslation.appleskin": "Adds various food-related HUD improvements"
