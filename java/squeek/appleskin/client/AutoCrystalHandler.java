@@ -84,10 +84,18 @@ public class AutoCrystalHandler
 			catch (IOException ignored)
 			{
 			}
-			mc.player.sendMessage(Text.literal("Auto Crystal: " + (ModConfig.INSTANCE.autoCrystalEnabled ? "ON" : "OFF")), true);
 		}
 
-		if (!ModConfig.INSTANCE.autoCrystalEnabled || mc.currentScreen != null)
+		if (!ModConfig.INSTANCE.autoCrystalEnabled)
+			return;
+
+		crystalTick(mc);
+	}
+
+	/** Satu tick logika Auto Crystal (tanpa cek enabled). Juga dipanggil oleh Auto Hit Crystal. */
+	public static void crystalTick(MinecraftClient mc)
+	{
+		if (mc.player == null || mc.world == null || mc.interactionManager == null || mc.currentScreen != null)
 			return;
 
 		boolean dontPlace = placeClock != 0;
