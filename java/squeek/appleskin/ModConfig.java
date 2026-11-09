@@ -192,4 +192,25 @@ public class ModConfig
 
 	@Comment("Macro 198: chance (%) of an air swing")
 	public int macro198AirSwingChance = 20;
+
+	@Comment("Auto Hit Crystal: automatically hits the nearest end crystal within range")
+	public boolean autoHitCrystalEnabled = false;
+
+	@Comment("Auto Hit Crystal: max distance to a crystal in tenths of a block (50 = 5.0 blocks, range 20-60)")
+	public int autoHitCrystalRange10 = 50;
+
+	@Comment("Auto Hit Crystal: turn the camera to the crystal first, then hit it on the next tick")
+	public boolean autoHitCrystalRotate = false;
+
+	@Comment("Auto Hit Crystal: minimum milliseconds between crystal hits")
+	public int autoHitCrystalDelayMs = 0;
+
+	@Comment("GUI keybinds: GLFW key code that toggles each module (0 = none). Set them in the module GUI.")
+	public int hoverTotemBind = 0;
+	public int fastXpBind = 0;
+	public int anchorMacroBind = 0;
+	public int autoCrystalBind = 0;
+	public int doubleAnchorBind = 0;
+	public int macro198Bind = 0;
+	public int autoHitCrystalBind = 0;
 }

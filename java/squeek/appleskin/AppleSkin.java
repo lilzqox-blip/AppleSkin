@@ -8,6 +8,11 @@ import org.apache.logging.log4j.Logger;
 import squeek.appleskin.api.AppleSkinApi;
 import squeek.appleskin.client.DebugInfoHudEntry;
 import squeek.appleskin.client.AnchorMacroHandler;
+import squeek.appleskin.client.AutoCrystalHandler;
+import squeek.appleskin.client.AutoHitCrystalHandler;
+import squeek.appleskin.client.DoubleAnchorHandler;
+import squeek.appleskin.client.Macro198Handler;
+import squeek.appleskin.client.ModuleGuiHandler;
 import squeek.appleskin.client.FastXpHandler;
 import squeek.appleskin.client.HUDOverlayHandler;
 import squeek.appleskin.client.HoverTotemHandler;
@@ -28,6 +33,11 @@ public class AppleSkin implements ClientModInitializer
 		HoverTotemHandler.init();
 		FastXpHandler.init();
 		AnchorMacroHandler.init();
+		AutoCrystalHandler.init();
+		DoubleAnchorHandler.init();
+		Macro198Handler.init();
+		AutoHitCrystalHandler.init();
+		ModuleGuiHandler.init();
 		FabricLoader.getInstance().getEntrypointContainers("appleskin", AppleSkinApi.class).forEach(entrypoint -> {
 			try
 			{
