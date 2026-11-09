@@ -166,6 +166,42 @@ public class ModConfig
 	@Comment("Double Anchor: holding a respawn anchor and right click on a charged anchor sends one extra interaction packet to it")
 	public boolean doubleAnchorEnabled = false;
 
+	@Comment("Double Anchor: chance (%) of the extra packet firing")
+	public int doubleAnchorChance = 100;
+
+	@Comment("Double Anchor: cover the spent anchor with glowstone afterwards")
+	public boolean doubleAnchorGlowstone = false;
+
+	@Comment("Double Anchor: delay before placing that glowstone, in ticks (0-20)")
+	public int doubleAnchorGlowstoneDelay = 2;
+
+	@Comment("Double Anchor Macro: GLFW key code that runs the full place+charge+double-explode sequence on the block you look at (0 = none, set in the module GUI)")
+	public int doubleAnchorMacroBind = 0;
+
+	@Comment("Double Anchor Macro: keep repeating the sequence while the macro key is held")
+	public boolean doubleAnchorMacroHoldRepeat = false;
+
+	@Comment("Double Anchor Macro: delay between stages, in ticks (0-20)")
+	public int doubleAnchorMacroDelay = 2;
+
+	@Comment("Double Anchor Macro: switch items automatically for each stage (off = you must already hold the right item)")
+	public boolean doubleAnchorMacroSwap = true;
+
+	@Comment("Double Anchor Macro: switch back to your original slot when the sequence finishes")
+	public boolean doubleAnchorMacroSwapBack = true;
+
+	@Comment("Double Anchor Macro: hotbar slot (1-9) switched to for the detonations")
+	public int doubleAnchorMacroExplodeSlot = 1;
+
+	@Comment("Double Anchor Macro: delay the final explosion until a nearby player is mid damage-tick")
+	public boolean doubleAnchorMacroDamageTick = false;
+
+	@Comment("Double Anchor Macro: range for the damage-tick check, in tenths of a block (20-100 = 2.0-10.0)")
+	public int doubleAnchorMacroDamageTickRange10 = 60;
+
+	@Comment("Double Anchor Macro: max time to wait for a damage tick, in milliseconds")
+	public int doubleAnchorMacroDamageTickMaxWait = 400;
+
 	@Comment("Macro 198: while holding the macro button, places obsidian + end crystal on the top face you look at and breaks crystals")
 	public boolean macro198Enabled = false;
 
@@ -193,17 +229,47 @@ public class ModConfig
 	@Comment("Macro 198: chance (%) of an air swing")
 	public int macro198AirSwingChance = 20;
 
-	@Comment("Auto Hit Crystal: automatically hits the nearest end crystal within range")
+	@Comment("Auto Hit Crystal: hold the button with a sword -> places obsidian, switches to a crystal, then runs Auto Crystal")
 	public boolean autoHitCrystalEnabled = false;
 
-	@Comment("Auto Hit Crystal: max distance to a crystal in tenths of a block (50 = 5.0 blocks, range 20-60)")
-	public int autoHitCrystalRange10 = 50;
+	@Comment("Auto Hit Crystal: mouse button that runs it (0 = left, 1 = right, 2 = middle)")
+	public int autoHitCrystalButton = 1;
 
-	@Comment("Auto Hit Crystal: turn the camera to the crystal first, then hit it on the next tick")
-	public boolean autoHitCrystalRotate = false;
+	@Comment("Auto Hit Crystal: only start when obsidian can actually be placed on the block you look at")
+	public boolean autoHitCrystalCheckPlace = false;
 
-	@Comment("Auto Hit Crystal: minimum milliseconds between crystal hits")
-	public int autoHitCrystalDelayMs = 0;
+	@Comment("Auto Hit Crystal: delay before switching items, in ticks (0-20)")
+	public int autoHitCrystalSwitchDelay = 0;
+
+	@Comment("Auto Hit Crystal: chance (%) of switching on a tick where switching is possible")
+	public int autoHitCrystalSwitchChance = 100;
+
+	@Comment("Auto Hit Crystal: delay between obsidian placements, in ticks (0-20)")
+	public int autoHitCrystalPlaceDelay = 0;
+
+	@Comment("Auto Hit Crystal: chance (%) of placing obsidian on a tick where placing is possible")
+	public int autoHitCrystalPlaceChance = 100;
+
+	@Comment("Auto Hit Crystal: also start while holding a totem")
+	public boolean autoHitCrystalWorkWithTotem = false;
+
+	@Comment("Auto Hit Crystal: also start while holding an end crystal")
+	public boolean autoHitCrystalWorkWithCrystal = false;
+
+	@Comment("Auto Hit Crystal: if you look at obsidian/bedrock when starting, skip placing obsidian and go straight to crystals")
+	public boolean autoHitCrystalSwordSwap = true;
+
+	@Comment("Auto Shield Breaker: when you hit a player who is blocking with a shield, switch to an axe from the hotbar first")
+	public boolean shieldBreakerEnabled = false;
+
+	@Comment("Auto Shield Breaker: only help hits made while you hold the attack button")
+	public boolean shieldBreakerRequireAttackKey = true;
+
+	@Comment("Auto Shield Breaker: only help while a sword, axe or mace is in your main hand")
+	public boolean shieldBreakerRequireWeapon = true;
+
+	@Comment("Auto Shield Breaker: return to the previously held slot after the hit")
+	public boolean shieldBreakerSwapBack = true;
 
 	@Comment("GUI keybinds: GLFW key code that toggles each module (0 = none). Set them in the module GUI.")
 	public int hoverTotemBind = 0;
@@ -213,4 +279,5 @@ public class ModConfig
 	public int doubleAnchorBind = 0;
 	public int macro198Bind = 0;
 	public int autoHitCrystalBind = 0;
+	public int shieldBreakerBind = 0;
 }
