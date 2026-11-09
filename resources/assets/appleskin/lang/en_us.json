@@ -153,5 +153,7 @@
   "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickRange10": "Double Anchor: damage tick range (x0.1 blocks)",
   "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickRange10.@Tooltip": "Range for the damage-tick check (60 = 6.0)",
   "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickMaxWait": "Double Anchor: damage tick max wait (ms)",
-  "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickMaxWait.@Tooltip": "Max time to wait for a damage tick"
+  "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickMaxWait.@Tooltip": "Max time to wait for a damage tick",
+  "text.autoconfig.appleskin.option.showToggleNotifications": "Show toggle notifications",
+  "text.autoconfig.appleskin.option.showToggleNotifications.@Tooltip": "Show an action-bar message whenever a module is toggled on/off"
 }
