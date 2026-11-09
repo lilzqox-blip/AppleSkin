@@ -64,6 +64,7 @@ public class AutoConfigIntegration implements ConfigData
 			ModConfig.INSTANCE.doubleAnchorMacroDamageTick = data.doubleAnchorMacroDamageTick;
 			ModConfig.INSTANCE.doubleAnchorMacroDamageTickRange10 = data.doubleAnchorMacroDamageTickRange10;
 			ModConfig.INSTANCE.doubleAnchorMacroDamageTickMaxWait = data.doubleAnchorMacroDamageTickMaxWait;
+			ModConfig.INSTANCE.showToggleNotifications = data.showToggleNotifications;
 			ModConfig.INSTANCE.macro198Enabled = data.macro198Enabled;
 			ModConfig.INSTANCE.macro198Button = data.macro198Button;
 			ModConfig.INSTANCE.macro198AutoBreak = data.macro198AutoBreak;
@@ -145,6 +146,7 @@ public class AutoConfigIntegration implements ConfigData
 			data.doubleAnchorMacroDamageTick = ModConfig.INSTANCE.doubleAnchorMacroDamageTick;
 			data.doubleAnchorMacroDamageTickRange10 = ModConfig.INSTANCE.doubleAnchorMacroDamageTickRange10;
 			data.doubleAnchorMacroDamageTickMaxWait = ModConfig.INSTANCE.doubleAnchorMacroDamageTickMaxWait;
+			data.showToggleNotifications = ModConfig.INSTANCE.showToggleNotifications;
 			data.macro198Enabled = ModConfig.INSTANCE.macro198Enabled;
 			data.macro198Button = ModConfig.INSTANCE.macro198Button;
 			data.macro198AutoBreak = ModConfig.INSTANCE.macro198AutoBreak;
@@ -336,6 +338,9 @@ public class AutoConfigIntegration implements ConfigData
 	@ConfigEntry.Gui.Tooltip()
 	@ConfigEntry.BoundedDiscrete(min = 0, max = 2000)
 	public int doubleAnchorMacroDamageTickMaxWait = DEFAULTS.doubleAnchorMacroDamageTickMaxWait;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean showToggleNotifications = DEFAULTS.showToggleNotifications;
 
 	@ConfigEntry.Gui.Tooltip()
 	public boolean macro198Enabled = DEFAULTS.macro198Enabled;
