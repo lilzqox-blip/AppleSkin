@@ -62,6 +62,10 @@ public class AutoConfigIntegration implements ConfigData
 			ModConfig.INSTANCE.macro198AttackChance = data.macro198AttackChance;
 			ModConfig.INSTANCE.macro198AirSwing = data.macro198AirSwing;
 			ModConfig.INSTANCE.macro198AirSwingChance = data.macro198AirSwingChance;
+			ModConfig.INSTANCE.autoHitCrystalEnabled = data.autoHitCrystalEnabled;
+			ModConfig.INSTANCE.autoHitCrystalRange10 = data.autoHitCrystalRange10;
+			ModConfig.INSTANCE.autoHitCrystalRotate = data.autoHitCrystalRotate;
+			ModConfig.INSTANCE.autoHitCrystalDelayMs = data.autoHitCrystalDelayMs;
 			try
 			{
 				ModConfig.INSTANCE.save();
@@ -118,6 +122,10 @@ public class AutoConfigIntegration implements ConfigData
 			data.macro198AttackChance = ModConfig.INSTANCE.macro198AttackChance;
 			data.macro198AirSwing = ModConfig.INSTANCE.macro198AirSwing;
 			data.macro198AirSwingChance = ModConfig.INSTANCE.macro198AirSwingChance;
+			data.autoHitCrystalEnabled = ModConfig.INSTANCE.autoHitCrystalEnabled;
+			data.autoHitCrystalRange10 = ModConfig.INSTANCE.autoHitCrystalRange10;
+			data.autoHitCrystalRotate = ModConfig.INSTANCE.autoHitCrystalRotate;
+			data.autoHitCrystalDelayMs = ModConfig.INSTANCE.autoHitCrystalDelayMs;
 			return ActionResult.SUCCESS;
 		});
 		holder.load();
@@ -280,4 +288,18 @@ public class AutoConfigIntegration implements ConfigData
 	@ConfigEntry.Gui.Tooltip()
 	@ConfigEntry.BoundedDiscrete(min = 0, max = 100)
 	public int macro198AirSwingChance = DEFAULTS.macro198AirSwingChance;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoHitCrystalEnabled = DEFAULTS.autoHitCrystalEnabled;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 20, max = 60)
+	public int autoHitCrystalRange10 = DEFAULTS.autoHitCrystalRange10;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoHitCrystalRotate = DEFAULTS.autoHitCrystalRotate;
+
+	@ConfigEntry.Gui.Tooltip()
+	@ConfigEntry.BoundedDiscrete(min = 0, max = 1000)
+	public int autoHitCrystalDelayMs = DEFAULTS.autoHitCrystalDelayMs;
 }
