@@ -84,6 +84,7 @@ public class AutoConfigIntegration implements ConfigData
 			ModConfig.INSTANCE.autoHitCrystalWorkWithTotem = data.autoHitCrystalWorkWithTotem;
 			ModConfig.INSTANCE.autoHitCrystalWorkWithCrystal = data.autoHitCrystalWorkWithCrystal;
 			ModConfig.INSTANCE.autoHitCrystalSwordSwap = data.autoHitCrystalSwordSwap;
+			ModConfig.INSTANCE.autoHitCrystalContinuousObsidian = data.autoHitCrystalContinuousObsidian;
 			ModConfig.INSTANCE.shieldBreakerEnabled = data.shieldBreakerEnabled;
 			ModConfig.INSTANCE.shieldBreakerRequireAttackKey = data.shieldBreakerRequireAttackKey;
 			ModConfig.INSTANCE.shieldBreakerRequireWeapon = data.shieldBreakerRequireWeapon;
@@ -166,6 +167,7 @@ public class AutoConfigIntegration implements ConfigData
 			data.autoHitCrystalWorkWithTotem = ModConfig.INSTANCE.autoHitCrystalWorkWithTotem;
 			data.autoHitCrystalWorkWithCrystal = ModConfig.INSTANCE.autoHitCrystalWorkWithCrystal;
 			data.autoHitCrystalSwordSwap = ModConfig.INSTANCE.autoHitCrystalSwordSwap;
+			data.autoHitCrystalContinuousObsidian = ModConfig.INSTANCE.autoHitCrystalContinuousObsidian;
 			data.shieldBreakerEnabled = ModConfig.INSTANCE.shieldBreakerEnabled;
 			data.shieldBreakerRequireAttackKey = ModConfig.INSTANCE.shieldBreakerRequireAttackKey;
 			data.shieldBreakerRequireWeapon = ModConfig.INSTANCE.shieldBreakerRequireWeapon;
@@ -409,6 +411,9 @@ public class AutoConfigIntegration implements ConfigData
 
 	@ConfigEntry.Gui.Tooltip()
 	public boolean autoHitCrystalSwordSwap = DEFAULTS.autoHitCrystalSwordSwap;
+
+	@ConfigEntry.Gui.Tooltip()
+	public boolean autoHitCrystalContinuousObsidian = DEFAULTS.autoHitCrystalContinuousObsidian;
 
 	@ConfigEntry.Gui.Tooltip()
 	public boolean shieldBreakerEnabled = DEFAULTS.shieldBreakerEnabled;
