@@ -262,6 +262,9 @@ public class ModConfig
 	@Comment("Auto Hit Crystal: if you look at obsidian/bedrock when starting, skip placing obsidian and go straight to crystals")
 	public boolean autoHitCrystalSwordSwap = true;
 
+	@Comment("Auto Hit Crystal: keep placing obsidian back-to-back while the button is held, instead of switching to crystal after one placement")
+	public boolean autoHitCrystalContinuousObsidian = false;
+
 	@Comment("Auto Shield Breaker: when you hit a player who is blocking with a shield, switch to an axe from the hotbar first")
 	public boolean shieldBreakerEnabled = false;
 
