@@ -155,5 +155,7 @@
   "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickMaxWait": "Double Anchor: damage tick max wait (ms)",
   "text.autoconfig.appleskin.option.doubleAnchorMacroDamageTickMaxWait.@Tooltip": "Max time to wait for a damage tick",
   "text.autoconfig.appleskin.option.showToggleNotifications": "Show toggle notifications",
-  "text.autoconfig.appleskin.option.showToggleNotifications.@Tooltip": "Show an action-bar message whenever a module is toggled on/off"
+  "text.autoconfig.appleskin.option.showToggleNotifications.@Tooltip": "Show an action-bar message whenever a module is toggled on/off",
+  "text.autoconfig.appleskin.option.autoHitCrystalContinuousObsidian": "Auto Hit Crystal: continuous obsidian",
+  "text.autoconfig.appleskin.option.autoHitCrystalContinuousObsidian.@Tooltip": "Keep placing obsidian back-to-back while held, instead of switching to crystal after one placement"
 }
