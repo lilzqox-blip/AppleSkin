@@ -280,7 +280,7 @@ public class Macro198Handler
 		{
 			if (mc.player.getInventory().getStack(i).isOf(item))
 			{
-				mc.player.getInventory().setSelectedSlot(i);
+				HotbarUtil.select(mc, i);
 				return true;
 			}
 		}

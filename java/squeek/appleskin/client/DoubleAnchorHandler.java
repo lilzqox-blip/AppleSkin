@@ -103,7 +103,7 @@ public class DoubleAnchorHandler
 			int glow = findHotbarSlot(mc, Items.GLOWSTONE);
 			if (glow != -1)
 			{
-				mc.player.getInventory().setSelectedSlot(glow);
+				HotbarUtil.select(mc, glow);
 				interact(mc, hit);
 			}
 			return;
@@ -302,7 +302,7 @@ public class DoubleAnchorHandler
 			case RESTORE:
 			{
 				if (ModConfig.INSTANCE.doubleAnchorMacroSwapBack && ModConfig.INSTANCE.doubleAnchorMacroSwap && startSlot != -1)
-					mc.player.getInventory().setSelectedSlot(startSlot);
+					HotbarUtil.select(mc, startSlot);
 				resetMacro();
 				return;
 			}
@@ -320,7 +320,7 @@ public class DoubleAnchorHandler
 		{
 			MinecraftClient mc = MinecraftClient.getInstance();
 			if (mc.player != null)
-				mc.player.getInventory().setSelectedSlot(startSlot);
+				HotbarUtil.select(mc, startSlot);
 		}
 		resetMacro();
 	}
@@ -393,7 +393,7 @@ public class DoubleAnchorHandler
 		if (ModConfig.INSTANCE.doubleAnchorMacroSwap)
 		{
 			int slot = ModConfig.INSTANCE.doubleAnchorMacroExplodeSlot - 1;
-			mc.player.getInventory().setSelectedSlot(slot);
+			HotbarUtil.select(mc, slot);
 		}
 		else if (mc.player.getMainHandStack().isOf(Items.GLOWSTONE))
 		{
@@ -427,7 +427,7 @@ public class DoubleAnchorHandler
 		int slot = findHotbarSlot(mc, item);
 		if (slot == -1)
 			return false;
-		mc.player.getInventory().setSelectedSlot(slot);
+		HotbarUtil.select(mc, slot);
 		return true;
 	}
 

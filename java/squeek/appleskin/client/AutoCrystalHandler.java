@@ -162,7 +162,7 @@ public class AutoCrystalHandler
 					int sword = findHotbarTool(mc);
 					if (sword != -1)
 					{
-						mc.player.getInventory().setSelectedSlot(sword);
+						HotbarUtil.select(mc, sword);
 						swapped = true;
 					}
 				}
@@ -172,7 +172,7 @@ public class AutoCrystalHandler
 				breakClock = ModConfig.INSTANCE.autoCrystalBreakDelay;
 
 				if (swapped)
-					mc.player.getInventory().setSelectedSlot(previousSlot);
+					HotbarUtil.select(mc, previousSlot);
 			}
 		}
 	}

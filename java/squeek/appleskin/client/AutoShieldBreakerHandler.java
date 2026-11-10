@@ -28,7 +28,7 @@ public class AutoShieldBreakerHandler
 			if (swapBackSlot >= 0)
 			{
 				if (mc.player != null)
-					mc.player.getInventory().setSelectedSlot(swapBackSlot);
+					HotbarUtil.select(mc, swapBackSlot);
 				swapBackSlot = -1;
 			}
 		});
@@ -61,7 +61,7 @@ public class AutoShieldBreakerHandler
 				return ActionResult.PASS;
 
 			int previous = player.getInventory().getSelectedSlot();
-			player.getInventory().setSelectedSlot(axeSlot);
+			HotbarUtil.select(mc, axeSlot);
 			if (ModConfig.INSTANCE.shieldBreakerSwapBack && swapBackSlot < 0)
 				swapBackSlot = previous;
 

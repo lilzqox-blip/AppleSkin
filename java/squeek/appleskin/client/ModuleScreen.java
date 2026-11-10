@@ -203,7 +203,8 @@ public class ModuleScreen extends Screen
 			number("PlaceChance (%)", "autoHitCrystalPlaceChance", 0, 100),
 			toggle("WorkWithTotem", "autoHitCrystalWorkWithTotem"),
 			toggle("WorkWithCrystal", "autoHitCrystalWorkWithCrystal"),
-			toggle("SwordSwap", "autoHitCrystalSwordSwap"))),
+			toggle("SwordSwap", "autoHitCrystalSwordSwap"),
+			toggle("ContinuousObsidian", "autoHitCrystalContinuousObsidian"))),
 		new Module("AutoShieldBreaker", 0, toggle("Enabled", "shieldBreakerEnabled"), bind("shieldBreakerBind"), List.of(
 			toggle("RequireAttackKey", "shieldBreakerRequireAttackKey"),
 			toggle("RequireWeapon", "shieldBreakerRequireWeapon"),

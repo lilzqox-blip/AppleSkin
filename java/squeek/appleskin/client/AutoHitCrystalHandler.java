@@ -150,7 +150,10 @@ public class AutoHitCrystalHandler
 						{
 							placeBlock(mc, hit);
 							placeClock = ModConfig.INSTANCE.autoHitCrystalPlaceDelay;
-							crystalling = true;
+							// Mode beruntun: tetap di tahap pasang obsidian selama tombol ditahan,
+							// tidak otomatis pindah ke tahap crystal.
+							if (!ModConfig.INSTANCE.autoHitCrystalContinuousObsidian)
+								crystalling = true;
 						}
 					}
 				}
@@ -238,7 +241,7 @@ public class AutoHitCrystalHandler
 		{
 			if (mc.player.getInventory().getStack(i).isOf(item))
 			{
-				mc.player.getInventory().setSelectedSlot(i);
+				HotbarUtil.select(mc, i);
 				return true;
 			}
 		}

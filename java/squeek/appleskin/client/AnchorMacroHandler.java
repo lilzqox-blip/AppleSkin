@@ -162,7 +162,7 @@ public class AnchorMacroHandler
 			int slot = findHotbarSlot(mc, Items.GLOWSTONE);
 			if (slot == -1)
 				return false;
-			mc.player.getInventory().setSelectedSlot(slot);
+			HotbarUtil.select(mc, slot);
 		}
 
 		if (glowstoneDelayCounter < ModConfig.INSTANCE.anchorGlowstoneDelay)
@@ -190,7 +190,7 @@ public class AnchorMacroHandler
 				return false;
 			}
 			switchDelayCounter = 0;
-			mc.player.getInventory().setSelectedSlot(slot);
+			HotbarUtil.select(mc, slot);
 		}
 
 		if (explodeDelayCounter < ModConfig.INSTANCE.anchorExplodeDelay)
@@ -299,7 +299,7 @@ public class AnchorMacroHandler
 		{
 			int slot = findHotbarSlot(mc, Items.RESPAWN_ANCHOR);
 			if (slot != -1)
-				mc.player.getInventory().setSelectedSlot(slot);
+				HotbarUtil.select(mc, slot);
 		}
 	}
 
@@ -332,7 +332,7 @@ public class AnchorMacroHandler
 		switch (pearlStage)
 		{
 			case 1:
-				mc.player.getInventory().setSelectedSlot(slot);
+				HotbarUtil.select(mc, slot);
 				pearlStage = 2;
 				break;
 			case 2:
@@ -346,7 +346,7 @@ public class AnchorMacroHandler
 				break;
 			default:
 				if (savedSlotBeforePearl >= 0 && savedSlotBeforePearl <= 8)
-					mc.player.getInventory().setSelectedSlot(savedSlotBeforePearl);
+					HotbarUtil.select(mc, savedSlotBeforePearl);
 				resetPearlStage();
 		}
 	}
